@@ -23,8 +23,11 @@ module.exports = {
       }
     },
     animation: {
-      marquee: 'marquee 60s linear infinite'
+      marquee: 'marquee 60s linear infinite',
+      marqueeMin: 'marquee 3600s linear infinite',
+      marqueeHour: 'marquee 86400s linear infinite',
     }
+
   },
   plugins: [],
 }
