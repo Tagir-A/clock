@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import reactLogo from "./assets/react.svg"
 
 const SECONDS = [
@@ -63,6 +63,9 @@ const SECONDS = [
   "58",
   "59",
 ]
+
+const MIN_OFFSET = 1160
+const MIN_ONE_WIDTH = 60
 const HOURS = [
   "00",
   "01",
@@ -92,6 +95,15 @@ const HOURS = [
 
 function App() {
   const [count, setCount] = useState(0)
+  const [minDelay, setMinDelay] = useState(0) // 2450 = 00
+
+  useLayoutEffect(() => {
+    const now = new Date()
+    const nowSeconds = now.getSeconds()
+    const nowMin = now.getMinutes()
+    console.log(nowSeconds)
+    setMinDelay(nowMin * MIN_ONE_WIDTH - MIN_OFFSET + nowSeconds)
+  }, [])
 
   return (
     <main>
@@ -100,7 +112,7 @@ function App() {
         <div className="shrink-0 flex justify-around min-w-full gap-4 animate-marquee">
           <span className="text-gray-600">{SECONDS.join(" ")}</span>
         </div>
-        <div className="shrink-0 flex justify-around min-w-full gap-4 animate-marquee">
+        <div className="shrink-0 flex justify-around min-w-full gap-2 animate-marquee">
           <span aria-hidden className="text-gray-600">
             {SECONDS.join(" ")}
           </span>
@@ -108,10 +120,20 @@ function App() {
       </div>
       {/* marquee minutes */}
       <div className="flex overflow-hidden select-none gap-4 text-4xl">
-        <div className="shrink-0 flex justify-around min-w-full gap-4 animate-marqueeMin">
+        <div
+          style={{
+            animationDelay: `-${minDelay}s`,
+          }}
+          className={`shrink-0 flex justify-around min-w-full gap-1 animate-marqueeMin `}
+        >
           <span className="text-gray-600">{SECONDS.join(" ")}</span>
         </div>
-        <div className="shrink-0 flex justify-around min-w-full gap-4 animate-marqueeMin">
+        <div
+          style={{
+            animationDelay: `-${minDelay}s`,
+          }}
+          className={`shrink-0 flex justify-around min-w-full gap-1 animate-marqueeMin `}
+        >
           <span aria-hidden className="text-gray-600">
             {SECONDS.join(" ")}
           </span>
