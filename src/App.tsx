@@ -111,7 +111,6 @@ function App() {
     const minWithOffset = Math.abs(nowMin - MIN_OFFSET + 60)
     const nowHours = now.getHours()
     const hourWithOffset = Math.abs(nowHours - HOUR_OFFSET + 24)
-    console.log(nowMin)
     setSecDelay(secWithOffset)
     setMinDelay(minWithOffset * MIN_ONE_WIDTH + nowSeconds / 2)
     setHourDelay(
