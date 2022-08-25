@@ -1,5 +1,4 @@
 import { useLayoutEffect, useState } from "react"
-import reactLogo from "./assets/react.svg"
 
 const SECONDS = [
   "00",
