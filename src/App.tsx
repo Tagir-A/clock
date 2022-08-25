@@ -64,6 +64,7 @@ const SECONDS = [
   "59",
 ]
 
+const SEC_OFFSET = 23 //1380
 const MIN_OFFSET = 19 //1160
 const MIN_ONE_WIDTH = 60
 const HOURS = [
@@ -101,9 +102,11 @@ function App() {
   useLayoutEffect(() => {
     const now = new Date()
     const nowSeconds = now.getSeconds()
+    const secWithOffset = Math.abs(nowSeconds - SEC_OFFSET + 60)
     const nowMin = now.getMinutes()
     const minWithOffset = Math.abs(nowMin - MIN_OFFSET + 60)
-    console.log(minWithOffset)
+    console.log(nowSeconds)
+    setSecDelay(secWithOffset)
     setMinDelay(minWithOffset * MIN_ONE_WIDTH + nowSeconds / 2)
   }, [])
 
@@ -115,7 +118,7 @@ function App() {
           style={{
             animationDelay: `-${secDelay}s`,
           }}
-          className="shrink-0 flex justify-around min-w-full gap-4 animate-marquee"
+          className="shrink-0 flex justify-around min-w-full gap-0.5 animate-marquee"
         >
           <span className="text-gray-600">{SECONDS.join(" ")}</span>
         </div>
@@ -123,20 +126,21 @@ function App() {
           style={{
             animationDelay: `-${secDelay}s`,
           }}
-          className="shrink-0 flex justify-around min-w-full gap-2 animate-marquee"
+          className="shrink-0 flex justify-around min-w-full gap-0.5 animate-marquee"
         >
           <span aria-hidden className="text-gray-600">
             {SECONDS.join(" ")}
           </span>
         </div>
       </div>
+
       {/* marquee minutes */}
       <div className="flex overflow-hidden select-none gap-4 text-4xl">
         <div
           style={{
             animationDelay: `-${minDelay}s`,
           }}
-          className={`shrink-0 flex justify-around min-w-full gap-1 animate-marqueeMin `}
+          className={`shrink-0 flex justify-around min-w-full gap-0.5 animate-marqueeMin `}
         >
           <span className="text-gray-600">{SECONDS.join(" ")}</span>
         </div>
@@ -144,13 +148,14 @@ function App() {
           style={{
             animationDelay: `-${minDelay}s`,
           }}
-          className={`shrink-0 flex justify-around min-w-full gap-1 animate-marqueeMin `}
+          className={`shrink-0 flex justify-around min-w-full gap-0.5 animate-marqueeMin `}
         >
           <span aria-hidden className="text-gray-600">
             {SECONDS.join(" ")}
           </span>
         </div>
       </div>
+
       {/* marquee hours */}
       <div className="flex overflow-hidden select-none gap-4 text-6xl">
         <div className="shrink-0 flex justify-around min-w-full gap-4 animate-marqueeHour">
